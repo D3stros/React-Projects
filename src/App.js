@@ -5,9 +5,9 @@ import Person from "./Person/person";
 class App extends Component {
   state = {
     persons: [
-      { name: "Max", age: 28 },
-      { name: "Dennis", age: 31 },
-      { name: "Daniel", age: 30 }
+      { id: 1, name: "Max", age: 28 },
+      { id: 2,name: "Dennis", age: 31 },
+      { id: 3,name: "Daniel", age: 30 }
     ],
     otherState: "some other value",
     showPersons: false
@@ -28,7 +28,7 @@ class App extends Component {
     // const persons = this.state.persons.slice();
 
     // The same can be done via the spread operator.It spreads out elements of an array into lists of elements which gets added to this array. 
-    // So objects of the old array are here now but not the old array itself. 
+    //So objects of the old array are here now but not the old array itself. 
     const persons = [...this.state.persons]
     persons.splice(personIndex, 1);
     this.setState({persons: persons});
@@ -57,7 +57,8 @@ class App extends Component {
             return <Person 
             click = {() => this.deletePersonHandler(index)}
             name = {person.name} 
-            age = {person.age}/>
+            age = {person.age}
+            key = {person.id}/>
           })}
       </div>
       );
