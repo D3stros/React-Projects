@@ -6,21 +6,27 @@ class App extends Component {
   state = {
     persons: [
       { id: 1, name: "Max", age: 28 },
-      { id: 2,name: "Dennis", age: 31 },
-      { id: 3,name: "Daniel", age: 30 }
+      { id: 2, name: "Dennis", age: 31 },
+      { id: 3, name: "Daniel", age: 30 }
     ],
     otherState: "some other value",
     showPersons: false
   };
 
-  nameChangedHandler = event => {
-    this.setState({
-      persons: [
-        { name: "Max", age: 30 },
-        { name: event.target.value, age: 31 },
-        { name: "Daniel", age: 27 }
-      ]
+  nameChangedHandler = (event, id)  => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
     });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({persons: persons});
   };
 
   deletePersonHandler = (personIndex) => {
@@ -39,7 +45,6 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   };
 
-  // Best practice is bind and not this.switchNameHandler
   render() {
     const style = {
       backgroundColor: "white",
@@ -55,10 +60,12 @@ class App extends Component {
         <div>
           {this.state.persons.map((person, index) => {
             return <Person 
+            // Clicking this will delete specifically this element by passing the index to it.
             click = {() => this.deletePersonHandler(index)}
             name = {person.name} 
             age = {person.age}
-            key = {person.id}/>
+            key = {person.id}
+            changed = {(event) => this.nameChangedHandler(event, person.id)}/>
           })}
       </div>
       );
