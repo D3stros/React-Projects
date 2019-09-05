@@ -13,17 +13,6 @@ class App extends Component {
     showPersons: false
   };
 
-  switchNameHandler = newName => {
-    // console.log("Was clicked!")
-    this.setState({
-      persons: [
-        { name: newName, age: 30 },
-        { name: "Dennis", age: 31 },
-        { name: "Daniel", age: 30 }
-      ]
-    });
-  };
-
   nameChangedHandler = event => {
     this.setState({
       persons: [
@@ -33,6 +22,17 @@ class App extends Component {
       ]
     });
   };
+
+  deletePersonHandler = (personIndex) => {
+    // Creating a copy of persons array before manipulating it. Slice without arguments copies full array and returns a new array which is stored in const
+    // const persons = this.state.persons.slice();
+
+    // The same can be done via the spread operator.It spreads out elements of an array into lists of elements which gets added to this array. 
+    // So objects of the old array are here now but not the old array itself. 
+    const persons = [...this.state.persons]
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons});
+  }
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
@@ -53,8 +53,9 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map(person => {
+          {this.state.persons.map((person, index) => {
             return <Person 
+            click = {() => this.deletePersonHandler(index)}
             name = {person.name} 
             age = {person.age}/>
           })}
