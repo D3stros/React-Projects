@@ -73,10 +73,20 @@ class App extends Component {
       // Button color should be red when Persons are visible
       style.backgroundColor = "red";
     }
+
+    const classes = []
+    if (this.state.persons.length <= 2) {
+      classes.push("red"); // classes = ["red"]
+    }
+
+    if (this.state.persons.length <= 1) {
+      classes.push("bold"); // classes = ["red", "bold"]
+    }
+
     return (
       <div className="App">
         <h1>Hi I'm a React App</h1>
-        <p>This is a paragraph.</p>
+        <p className = {classes.join(" ")}>This is a paragraph.</p>
         <button style={style} onClick={this.togglePersonsHandler}>
           Show/hide content 
         </button>
