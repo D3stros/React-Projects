@@ -1,5 +1,6 @@
 import React from "react";
 import "./person.css";
+import Radium from "radium";
 
 const person = (props) => {
     const style = {
