@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/person";
+import Radium from "radium";
 
 class App extends Component {
   state = {
@@ -52,7 +53,9 @@ class App extends Component {
       font: "inherit",
       border: "1px solid blue",
       padding: "8px",
-      cursor: "pointer"
+      cursor: "pointer",
+      // Using radium to use pseudo selectors
+      ":hover": {backgroundColor: "lightgreen",color: "black"}
     };
 
     let persons = null;
@@ -72,6 +75,8 @@ class App extends Component {
       );
       // Button color should be red when Persons are visible
       style.backgroundColor = "red";
+       // Using radium to use pseudo selectors
+      style[":hover"] = {backgroundColor: "salmon",color: "black"}
     }
 
     const classes = []
@@ -97,4 +102,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
