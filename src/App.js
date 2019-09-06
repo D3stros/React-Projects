@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import "./App.css";
+// classes here is a javascript object containing the app.css classes as properties. 
+import './App.css';
 import Person from "./Person/person";
+// Importing ErrorBoundary component
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+
 
 
 class App extends Component {
@@ -61,13 +65,16 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person 
+            // Using ErrorBoundary to catch error. Only use them when useful and not always. For cases when you know it might fail and you can't control it. 
+            // Changes are not visible in the developer mode
+            return <ErrorBoundary key = {person.id}>
+              <Person 
             // Clicking this will delete specifically this element by passing the index to it.
             click = {() => this.deletePersonHandler(index)}
             name = {person.name} 
             age = {person.age}
-            key = {person.id}
             changed = {(event) => this.nameChangedHandler(event, person.id)}/>
+            </ErrorBoundary>
           })}
       </div>
       );
@@ -75,19 +82,19 @@ class App extends Component {
       style.backgroundColor = "red";
     }
 
-    const classes = []
+    const assignedClasses = []
     if (this.state.persons.length <= 2) {
-      classes.push("red"); // classes = ["red"]
+      assignedClasses.push("red"); // classes = ["red"]
     }
 
     if (this.state.persons.length <= 1) {
-      classes.push("bold"); // classes = ["red", "bold"]
+      assignedClasses.push("bold"); // classes = ["red", "bold"]
     }
 
     return (
-        <div className="App">
+        <div className= "App">
         <h1>Hi I'm a React App</h1>
-        <p className = {classes.join(" ")}>This is a paragraph.</p>
+        <p className = {assignedClasses.join(" ")}>This is a paragraph.</p>
         <button style={style} onClick={this.togglePersonsHandler}>
           Show/hide content 
         </button>
