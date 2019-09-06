@@ -2,8 +2,6 @@ import React, { Component } from "react";
 // classes here is a javascript object containing the app.css classes as properties. 
 import './App.css';
 import Person from "./Person/person";
-// Importing ErrorBoundary component
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 
 
@@ -65,16 +63,13 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            // Using ErrorBoundary to catch error. Only use them when useful and not always. For cases when you know it might fail and you can't control it. 
-            // Changes are not visible in the developer mode
-            return <ErrorBoundary key = {person.id}>
-              <Person 
+            return <Person 
             // Clicking this will delete specifically this element by passing the index to it.
             click = {() => this.deletePersonHandler(index)}
             name = {person.name} 
             age = {person.age}
+            key = {person.id}
             changed = {(event) => this.nameChangedHandler(event, person.id)}/>
-            </ErrorBoundary>
           })}
       </div>
       );
