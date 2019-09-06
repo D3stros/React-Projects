@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// classes here is a javascript object containing the app.css classes as properties. 
 import './App.css';
 import Person from "./Person/person";
 
